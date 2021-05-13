@@ -16,9 +16,7 @@ class StudentsController < ActionController::Base
 	end
 
 	def create
-	  @student = Student.new
-	  @student.title = params[:title]
-	  @student.description = params[:description]
+	  @student = Student.new(student_params)
 	  @student.save
 	  redirect_to student_path(@student)
 	end
@@ -31,6 +29,10 @@ class StudentsController < ActionController::Base
 	  @student = Student.find(params[:id])
 	  @student.update(params.require(:student).permit(:first_name, :last_name))
 	  redirect_to student_path(@student)
+	end
+
+	def student_params
+		params.require(:student).permit(:first_name, :last_name)
 	end
     
   end
